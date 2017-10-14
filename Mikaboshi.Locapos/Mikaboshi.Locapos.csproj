@@ -10,6 +10,8 @@
     <Copyright>Copyright 2017 (C) Chii Ayano</Copyright>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageTags>locapos geolocation location</PackageTags>
+    <LicenseUrl>https://github.com/ChiiAyano/Mikaboshi.Locapos/blob/master/LICENSE</LicenseUrl>
+    <ProjectUrl>https://github.com/ChiiAyano/Mikaboshi.Locapos</ProjectUrl>
   </PropertyGroup>
 
   <ItemGroup>
