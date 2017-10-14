@@ -2,6 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.4</TargetFramework>
+    <PackageId>Mikaboshi.Locapos</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Chii Ayano</Authors>
+    <Description>The Client Library of Locapos Service.</Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <Copyright>Copyright 2017 (C) Chii Ayano</Copyright>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageTags>locapos geolocation location</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
