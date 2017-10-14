@@ -1,19 +1,19 @@
-日本語は [こちら](README_ja.md)
+English version is [here](README.md)
 
 # Mikaboshi.Locapos
-This is a Locapos client library.
+Locapos クライアント ライブラリです。
 
 ## Locapos is...
-Locapos is the service of sharing your location information to other Locapos users or worldwide users via official website.
+Locapos (ろけぽす) は、自分の位置情報を他のユーザーと共有したり、公式サイトの地図を通して全世界へ位置情報を共有できるサービスです。
 
-[Official website is here (Japanese)](https://locapos.com)
+[公式サイト](https://locapos.com)
 
-## Client Library Platform
+## クライアント ライブラリの実装環境
 .NET Standard 1.4
 
-## How to use this library
+## ライブラリの使い方
 
-Authentication and Post
+認証および位置情報の送信
 ```cs
 using Mikaboshi.Locapos;
 
