@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Mikaboshi.Locapos", "Mikaboshi.Locapos\Mikaboshi.Locapos.csproj", "{2210496F-F6B2-4AD3-856F-62B3DB7AFC17}"
 EndProject
