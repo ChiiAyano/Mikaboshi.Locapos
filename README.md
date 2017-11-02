@@ -1,5 +1,11 @@
 日本語は [こちら](README_ja.md)
 
+# Status
+## Build
+|Branch|Build Status|NuGet Package|
+|------|------------|-------------|
+|master|[![Build status](https://ci.appveyor.com/api/projects/status/08v2a3nv3ne032o0/branch/master?svg=true)](https://ci.appveyor.com/project/ChiiAyano/mikaboshi-locapos/branch/master)|[![NuGet](https://img.shields.io/nuget/v/Mikaboshi.Locapos.svg)](https://www.nuget.org/packages/Mikaboshi.Locapos/)|
+
 # Mikaboshi.Locapos
 This is a Locapos client library.
 
