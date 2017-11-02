@@ -30,7 +30,11 @@ namespace Mikaboshi.Locapos.Response
             this.ResponseMessage = response;
             this.StatusCode = response.StatusCode;
 
+#if NETSTANDARD1_4 || NET46
             return Task.CompletedTask;
+#else
+            return Task.FromResult<object>(null);
+#endif
         }
     }
 }
