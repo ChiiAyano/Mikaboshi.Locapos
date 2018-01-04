@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.4;net451;net45;net46</TargetFrameworks>
+    <TargetFrameworks>netstandard1.4</TargetFrameworks>
     <PackageId>Mikaboshi.Locapos</PackageId>
     <PackageVersion>1.0.0</PackageVersion>
     <Authors>Chii Ayano</Authors>
