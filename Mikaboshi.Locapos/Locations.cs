@@ -2,8 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Net.Http;
 using System.Threading.Tasks;
+
+#if WINDOWS_UWP
+using Windows.Web.Http;
+#else
+using System.Net.Http;
+#endif
 
 namespace Mikaboshi.Locapos
 {
@@ -46,10 +51,16 @@ namespace Mikaboshi.Locapos
             if (privatePost) contentsDict.Add("private", "true");
             if (!string.IsNullOrWhiteSpace(groupId)) contentsDict.Add("key", groupId);
 
+#if WINDOWS_UWP
+            var contents = new HttpFormUrlEncodedContent(contentsDict);
+            var request = LocaposClientInternal.CreatePostRequest(updateUri, contents);
+            var response = await http.SendRequestAsync(request);
+#else
             var contents = new FormUrlEncodedContent(contentsDict);
             var request = await LocaposClientInternal.CreatePostRequestAsync(updateUri, contents, true);
-
             var response = await http.SendAsync(request);
+#endif
+
             var result = new BaseResponse();
             await result.SetResponseAsync(response);
 

@@ -1,7 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
+
+#if WINDOWS_UWP
+using Windows.Web.Http;
+#else
+using System.Net.Http;
+#endif
 
 namespace Mikaboshi.Locapos.Response
 {

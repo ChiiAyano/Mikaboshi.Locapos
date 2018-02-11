@@ -30,7 +30,13 @@ namespace Mikaboshi.Locapos
 
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken);
             var request = LocaposClientInternal.CreateGetRequest(newUri);
+
+#if WINDOWS_UWP
+            var response = await http.SendRequestAsync(request);
+#else
             var response = await http.SendAsync(request);
+#endif
+
             var result = new GroupHashResponse();
             await result.SetResponseAsync(response);
 
