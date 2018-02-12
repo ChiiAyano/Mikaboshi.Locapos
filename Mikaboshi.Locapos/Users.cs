@@ -3,11 +3,7 @@ using Mikaboshi.Locapos.Response;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-#if WINDOWS_UWP
-using Windows.Web.Http;
-#else
 using System.Net.Http;
-#endif
 
 namespace Mikaboshi.Locapos
 {
@@ -39,11 +35,7 @@ namespace Mikaboshi.Locapos
             var request = LocaposClientInternal.CreateGetRequest(showUri +
                 (!string.IsNullOrWhiteSpace(groupId) ? "?key=" + groupId : string.Empty));
 
-#if WINDOWS_UWP
-            var response = await http.SendRequestAsync(request);
-#else
             var response = await http.SendAsync(request);
-#endif
             var result = new UsersShowResponse();
             await result.SetResponseAsync(response);
 
@@ -61,11 +53,7 @@ namespace Mikaboshi.Locapos
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken);
             var request = LocaposClientInternal.CreateGetRequest(meUri);
 
-#if WINDOWS_UWP
-            var response = await http.SendRequestAsync(request);
-#else
             var response = await http.SendAsync(request);
-#endif
 
             var result = new UsersMeResponse();
             await result.SetResponseAsync(response);
@@ -84,11 +72,7 @@ namespace Mikaboshi.Locapos
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken);
             var request = LocaposClientInternal.CreateGetRequest(shareUri);
 
-#if WINDOWS_UWP
-            var response = await http.SendRequestAsync(request);
-#else
             var response = await http.SendAsync(request);
-#endif
 
             var result = new GroupHashResponse();
             await result.SetResponseAsync(response);
@@ -107,15 +91,10 @@ namespace Mikaboshi.Locapos
                 };
 
 
-#if WINDOWS_UWP
-            var content = new HttpFormUrlEncodedContent(contentDict);
-            var request = LocaposClientInternal.CreatePostRequest(updateNameUri, content);
-            var response = await http.SendRequestAsync(request);
-#else
             var content = new FormUrlEncodedContent(contentDict);
             var request = await LocaposClientInternal.CreatePostRequestAsync(updateNameUri, content, true);
             var response = await http.SendAsync(request);
-#endif
+
             var result = new BaseResponse();
             await result.SetResponseAsync(response);
 

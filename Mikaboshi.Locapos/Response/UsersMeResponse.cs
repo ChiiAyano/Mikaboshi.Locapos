@@ -2,11 +2,7 @@
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 
-#if WINDOWS_UWP
-using Windows.Web.Http;
-#else
 using System.Net.Http;
-#endif
 
 namespace Mikaboshi.Locapos.Response
 {
