@@ -13,8 +13,6 @@ namespace Mikaboshi.Locapos
 
         private static HttpClient http;
 
-        private static readonly Version http2 = Version.Parse("2.0");
-
         internal static HttpClient GetHttpClient(ClientToken token)
         {
             if (http != null) return http;
@@ -42,9 +40,6 @@ namespace Mikaboshi.Locapos
             {
                 Method = HttpMethod.Get,
                 RequestUri = uri,
-#if WINDOWS_UWP
-                Version = http2
-#endif
             };
 
             return request;
@@ -91,9 +86,6 @@ namespace Mikaboshi.Locapos
                 Method = HttpMethod.Post,
                 RequestUri = uri,
                 Content = httpContent,
-#if WINDOWS_UWP
-                Version = http2
-#endif
             };
 
             return request;

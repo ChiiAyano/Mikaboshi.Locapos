@@ -1,9 +1,7 @@
-﻿using System;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Mikaboshi.Locapos.Response
 {

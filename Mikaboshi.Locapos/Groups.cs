@@ -1,5 +1,4 @@
 ﻿using Mikaboshi.Locapos.Response;
-using System;
 using System.Threading.Tasks;
 
 namespace Mikaboshi.Locapos

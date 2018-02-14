@@ -1,10 +1,8 @@
 ﻿using Mikaboshi.Locapos.Response;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Threading.Tasks;
-
 using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace Mikaboshi.Locapos
 {
