@@ -1,5 +1,4 @@
 ﻿using Mikaboshi.Locapos.Response;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
@@ -48,8 +47,8 @@ namespace Mikaboshi.Locapos
 
             var contents = new FormUrlEncodedContent(contentsDict);
             var request = await LocaposClientInternal.CreatePostRequestAsync(updateUri, contents, true);
-
             var response = await http.SendAsync(request);
+
             var result = new BaseResponse();
             await result.SetResponseAsync(response);
 

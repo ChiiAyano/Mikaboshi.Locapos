@@ -1,6 +1,6 @@
-﻿using System.Net;
+﻿using System.Threading.Tasks;
+using System.Net;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Mikaboshi.Locapos.Response
 {

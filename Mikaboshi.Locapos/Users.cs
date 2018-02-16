@@ -1,7 +1,5 @@
 ﻿using Mikaboshi.Locapos.Response;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -34,6 +32,7 @@ namespace Mikaboshi.Locapos
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken);
             var request = LocaposClientInternal.CreateGetRequest(showUri +
                 (!string.IsNullOrWhiteSpace(groupId) ? "?key=" + groupId : string.Empty));
+
             var response = await http.SendAsync(request);
             var result = new UsersShowResponse();
             await result.SetResponseAsync(response);
@@ -51,7 +50,9 @@ namespace Mikaboshi.Locapos
 
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken);
             var request = LocaposClientInternal.CreateGetRequest(meUri);
+
             var response = await http.SendAsync(request);
+
             var result = new UsersMeResponse();
             await result.SetResponseAsync(response);
 
@@ -68,7 +69,9 @@ namespace Mikaboshi.Locapos
 
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken);
             var request = LocaposClientInternal.CreateGetRequest(shareUri);
+
             var response = await http.SendAsync(request);
+
             var result = new GroupHashResponse();
             await result.SetResponseAsync(response);
 
@@ -85,10 +88,11 @@ namespace Mikaboshi.Locapos
                     { "screen_name", screenName }
                 };
 
-            var content = new FormUrlEncodedContent(contentDict);
 
-            var request = await LocaposClientInternal.CreatePostRequestAsync(updateNameUri, content);
+            var content = new FormUrlEncodedContent(contentDict);
+            var request = await LocaposClientInternal.CreatePostRequestAsync(updateNameUri, content, true);
             var response = await http.SendAsync(request);
+
             var result = new BaseResponse();
             await result.SetResponseAsync(response);
 

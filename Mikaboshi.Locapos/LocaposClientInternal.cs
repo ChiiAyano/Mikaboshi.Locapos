@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
-using System.Net.Http;
 using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace Mikaboshi.Locapos
 {
@@ -12,7 +12,6 @@ namespace Mikaboshi.Locapos
         internal static string ApiUri => BaseUri + "api/";
 
         private static HttpClient http;
-
 
         internal static HttpClient GetHttpClient(ClientToken token)
         {
@@ -40,12 +39,11 @@ namespace Mikaboshi.Locapos
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Get,
-                RequestUri = uri
+                RequestUri = uri,
             };
 
             return request;
         }
-
         internal async static Task<HttpRequestMessage> CreatePostRequestAsync(string uri, HttpContent content, bool gzipCompress = false)
         {
             return await CreatePostRequestAsync(new Uri(uri), content, gzipCompress);
@@ -87,7 +85,7 @@ namespace Mikaboshi.Locapos
             {
                 Method = HttpMethod.Post,
                 RequestUri = uri,
-                Content = httpContent
+                Content = httpContent,
             };
 
             return request;
