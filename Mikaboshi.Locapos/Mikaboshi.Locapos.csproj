@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard1.4;uap10.0</TargetFrameworks>
     <PackageId>Mikaboshi.Locapos</PackageId>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>$version$</PackageVersion>
     <Authors>Chii Ayano</Authors>
     <Description>The Client Library of Locapos Service.</Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
