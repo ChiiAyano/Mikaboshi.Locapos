@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -19,6 +20,20 @@ namespace Mikaboshi.Locapos.Response
         /// Locapos から成功の応答があったかどうかを取得します。
         /// </summary>
         public bool Succeeded => this.ResponseMessage?.IsSuccessStatusCode ?? false;
+        /// <summary>
+        /// 例外が発生した場合、発生した例外を取得します。
+        /// </summary>
+        public Exception Exception { get; private set; }
+
+        public BaseResponse()
+        {
+
+        }
+
+        public BaseResponse(Exception ex)
+        {
+            this.Exception = ex;
+        }
 
         /// <summary>
         /// ベース クラスでは、基本的なレスポンス情報を設定します。
