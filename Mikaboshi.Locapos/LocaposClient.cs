@@ -35,7 +35,7 @@ namespace Mikaboshi.Locapos
         /// <returns></returns>
         public ClientToken ParseAuthenticationResponse(string responseQuery)
         {
-            var queryString = responseQuery.Substring(responseQuery.IndexOf('#'));
+            var queryString = responseQuery.Substring(responseQuery.IndexOf('#') + 1).Trim();
             var query = queryString.Split('&').Select(s => s.Split('=')).ToDictionary(x => x[0], y => y[1]);
 
             var token = new ClientToken { Token = query["access_token"] };
