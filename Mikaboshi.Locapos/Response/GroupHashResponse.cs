@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Net.Http;
+﻿using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Mikaboshi.Locapos.Response
@@ -8,7 +8,7 @@ namespace Mikaboshi.Locapos.Response
     {
         private class GroupHash
         {
-            public string Key { get; set; }
+            public string Key { get; init; }
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace Mikaboshi.Locapos.Response
             if (!this.Succeeded) return;
 
             var content = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<GroupHash>(content);
+            var data = JsonSerializer.Deserialize<GroupHash>(content);
 
             this.Key = data?.Key;
         }
