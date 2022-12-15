@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Mikaboshi.Locapos.Response
 {
@@ -7,37 +7,37 @@ namespace Mikaboshi.Locapos.Response
         /// <summary>
         /// このユーザーが認証に使用したサービス
         /// </summary>
-        [JsonProperty("provider")]
-        public string AuthProvider { get; set; }
+        [JsonPropertyName("provider")]
+        public string AuthProvider { get; init; }
 
         /// <summary>
         /// ユーザー ID
         /// </summary>
-        [JsonProperty("id")]
-        public string ID { get; set; }
+        [JsonPropertyName("id")]
+        public string ID { get; init; }
 
         /// <summary>
         /// ユーザー名
         /// </summary>
-        [JsonProperty("name")]
-        public string UserName { get; set; }
+        [JsonPropertyName("name")]
+        public string UserName { get; init; }
 
         /// <summary>
         /// 緯度
         /// </summary>
-        [JsonProperty("latitude")]
-        public double Latitude { get; set; }
+        [JsonPropertyName("latitude")]
+        public double Latitude { get; init; }
 
         /// <summary>
         /// 経度
         /// </summary>
-        [JsonProperty("longitude")]
-        public double Longitude { get; set; }
+        [JsonPropertyName("longitude")]
+        public double Longitude { get; init; }
 
         /// <summary>
         /// 進行方向
         /// </summary>
-        [JsonProperty("heading")]
-        public double Heading { get; set; }
+        [JsonPropertyName("heading")]
+        public double Heading { get; init; }
     }
 }

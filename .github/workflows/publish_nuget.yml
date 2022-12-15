@@ -34,7 +34,7 @@ jobs:
 
       # Build
       - name: Build
-        run: dotnet pack -c Release /p:PackageVersion=${{ steps.gitversion/outputs.nuGetVersion }} -o nupkg
+        run: dotnet pack -c Release /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersion }} -o nupkg
 
       # Push
       - name: Push

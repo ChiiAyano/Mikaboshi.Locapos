@@ -1,6 +1,6 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Mikaboshi.Locapos.Response
@@ -22,7 +22,7 @@ namespace Mikaboshi.Locapos.Response
             if (!this.Succeeded) return;
 
             var content = await response.Content.ReadAsStringAsync();
-            var users = JsonConvert.DeserializeObject<IEnumerable<UserPositionData>>(content);
+            var users = JsonSerializer.Deserialize<IEnumerable<UserPositionData>>(content);
             this.Users = users;
         }
     }

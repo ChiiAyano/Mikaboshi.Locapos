@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Net.Http;
+﻿using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Mikaboshi.Locapos.Response
@@ -18,7 +18,7 @@ namespace Mikaboshi.Locapos.Response
             if (!this.Succeeded) return;
 
             var content = await response.Content.ReadAsStringAsync();
-            var me = JsonConvert.DeserializeObject<UserPositionData>(content);
+            var me = JsonSerializer.Deserialize<UserPositionData>(content);
             this.Me = me;
         }
     }
