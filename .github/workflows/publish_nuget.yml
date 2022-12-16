@@ -29,6 +29,8 @@ jobs:
       - name: Generate Version
         id: gitversion
         uses: gittools/actions/gitversion/execute@v0.9.15
+        with:
+          useConfigFile: true
 
       # Restore
       - name: Restore
