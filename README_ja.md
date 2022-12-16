@@ -9,7 +9,7 @@ Locapos (ろけぽす) は、自分の位置情報を他のユーザーと共有
 [公式サイト](https://locapos.com)
 
 ## クライアント ライブラリの実装環境
-.NET Standard 1.4
+.NET 7
 
 ## ライブラリの使い方
 
@@ -38,7 +38,15 @@ public class SomeClass
 
     public async Task PostAsync(double latitude, double longitude)
     {
+        // Basicaly Post
         var result = await this.client.Locations.UpdateAsync(latitude, longitude);
+
+        // Private Mode Post
+        var result = await this.client.Locations.UpdateAsync(latitude, longitude, privatePost: true);
+
+        // Group Post
+        var groupHash = await this.client.Groups.New();
+        var result = await this.client.Locations.UpdateAsync(latitude, longitude, groupId: groupHash.Key);
     }
 }
 ```

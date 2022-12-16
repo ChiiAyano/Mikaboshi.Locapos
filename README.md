@@ -4,7 +4,7 @@
 ## Build
 |Branch|Build Status|NuGet Package|
 |------|------------|-------------|
-|master|[![Build status](https://ci.appveyor.com/api/projects/status/08v2a3nv3ne032o0/branch/master?svg=true)](https://ci.appveyor.com/project/ChiiAyano/mikaboshi-locapos/branch/master)|[![NuGet](https://img.shields.io/nuget/v/Mikaboshi.Locapos.svg)](https://www.nuget.org/packages/Mikaboshi.Locapos/)|
+|master|![Build status](https://github.com/ChiiAyano/Mikaboshi.Locapos/actions/workflows/publish_nuget.yml/badge.svg)|[![NuGet](https://img.shields.io/nuget/v/Mikaboshi.Locapos.svg)](https://www.nuget.org/packages/Mikaboshi.Locapos/)|
 
 # Mikaboshi.Locapos
 This is a Locapos client library.
@@ -15,7 +15,7 @@ Locapos is the service of sharing your location information to other Locapos use
 [Official website is here (Japanese)](https://locapos.com)
 
 ## Client Library Platform
-.NET Standard 1.4
+.NET 7
 
 ## How to use this library
 
@@ -44,7 +44,15 @@ public class SomeClass
 
     public async Task PostAsync(double latitude, double longitude)
     {
+        // Basicaly Post
         var result = await this.client.Locations.UpdateAsync(latitude, longitude);
+
+        // Private Mode Post
+        var result = await this.client.Locations.UpdateAsync(latitude, longitude, privatePost: true);
+
+        // Group Post
+        var groupHash = await this.client.Groups.New();
+        var result = await this.client.Locations.UpdateAsync(latitude, longitude, groupId: groupHash.Key);
     }
 }
 ```
