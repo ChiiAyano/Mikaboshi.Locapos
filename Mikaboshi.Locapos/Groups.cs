@@ -1,5 +1,4 @@
 ﻿using Mikaboshi.Locapos.Response;
-using System;
 using System.Threading.Tasks;
 
 namespace Mikaboshi.Locapos
@@ -28,7 +27,7 @@ namespace Mikaboshi.Locapos
         {
             this.client.CheckToken();
 
-            var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken);
+            var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
             var request = LocaposClientInternal.CreateGetRequest(newUri);
             var response = await http.SendAsync(request);
             var result = new GroupHashResponse();

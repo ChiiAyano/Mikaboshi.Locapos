@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Net.Http;
 
 namespace Mikaboshi.Locapos
 {
@@ -10,7 +11,7 @@ namespace Mikaboshi.Locapos
         /// <summary>
         /// サービスの利用に必要なトークンを取得または設定します。
         /// </summary>
-        public ClientToken ClientToken { get; set; }
+        public ClientToken? ClientToken { get; set; }
 
         #region 認証
 
@@ -68,11 +69,13 @@ namespace Mikaboshi.Locapos
 
         #region 共通処理
 
-        public LocaposClient()
+        public LocaposClient(HttpClientHandler? clientHandler = null)
         {
             this.Locations = new Locations(this);
             this.Users = new Users(this);
             this.Groups = new Groups(this);
+
+            LocaposClientInternal.ClientHandler = clientHandler;
         }
 
         /// <summary>

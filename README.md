@@ -15,7 +15,7 @@ Locapos is the service of sharing your location information to other Locapos use
 [Official website is here (Japanese)](https://locapos.com)
 
 ## Client Library Platform
-.NET 7
+.NET 8
 
 ## How to use this library
 

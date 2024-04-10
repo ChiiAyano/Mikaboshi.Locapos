@@ -1,5 +1,4 @@
 ﻿using Mikaboshi.Locapos.Response;
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
@@ -35,7 +34,7 @@ namespace Mikaboshi.Locapos
         {
             this.client.CheckToken();
 
-            var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken);
+            var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
 
             var contentsDict = new Dictionary<string, string>
                 {

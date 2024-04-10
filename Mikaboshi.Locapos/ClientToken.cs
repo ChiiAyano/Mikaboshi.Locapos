@@ -7,7 +7,7 @@ namespace Mikaboshi.Locapos
         /// <summary>
         /// 認証に使用するトークンを取得または設定します。
         /// </summary>
-        public string Token { get; set; }
+        public string Token { get; set; } = null!;
         /// <summary>
         /// トークンの期限を取得します。
         /// </summary>
@@ -15,6 +15,6 @@ namespace Mikaboshi.Locapos
         /// <summary>
         /// トークンが期限切れになったときの再発行に使用するトークンを取得します。
         /// </summary>
-        public string RefreshToken { get; internal set; }
+        public string RefreshToken { get; internal set; } = null!;
     }
 }

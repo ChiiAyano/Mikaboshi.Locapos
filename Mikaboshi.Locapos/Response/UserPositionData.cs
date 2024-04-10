@@ -8,19 +8,19 @@ namespace Mikaboshi.Locapos.Response
         /// このユーザーが認証に使用したサービス
         /// </summary>
         [JsonPropertyName("provider")]
-        public string AuthProvider { get; init; }
+        public string? AuthProvider { get; init; }
 
         /// <summary>
         /// ユーザー ID
         /// </summary>
         [JsonPropertyName("id")]
-        public string ID { get; init; }
+        public string? ID { get; init; }
 
         /// <summary>
         /// ユーザー名
         /// </summary>
         [JsonPropertyName("name")]
-        public string UserName { get; init; }
+        public string? UserName { get; init; }
 
         /// <summary>
         /// 緯度

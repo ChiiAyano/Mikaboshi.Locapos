@@ -13,7 +13,7 @@ namespace Mikaboshi.Locapos.Response
         /// <summary>
         /// 現在アクティブなユーザーを列挙します。
         /// </summary>
-        public IEnumerable<UserPositionData> Users { get; private set; }
+        public IEnumerable<UserPositionData>? Users { get; private set; }
 
         internal override async Task SetResponseAsync(HttpResponseMessage response)
         {

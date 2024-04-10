@@ -1,7 +1,5 @@
 ﻿using Mikaboshi.Locapos.Response;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -31,7 +29,7 @@ namespace Mikaboshi.Locapos
         {
             this.client.CheckToken();
 
-            var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken);
+            var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
             var request = LocaposClientInternal.CreateGetRequest(showUri +
                 (!string.IsNullOrWhiteSpace(groupId) ? "?key=" + groupId : string.Empty));
             var response = await http.SendAsync(request);
@@ -49,7 +47,7 @@ namespace Mikaboshi.Locapos
         {
             this.client.CheckToken();
 
-            var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken);
+            var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
             var request = LocaposClientInternal.CreateGetRequest(meUri);
             var response = await http.SendAsync(request);
             var result = new UsersMeResponse();
@@ -66,7 +64,7 @@ namespace Mikaboshi.Locapos
         {
             this.client.CheckToken();
 
-            var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken);
+            var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
             var request = LocaposClientInternal.CreateGetRequest(shareUri);
             var response = await http.SendAsync(request);
             var result = new GroupHashResponse();
@@ -79,7 +77,7 @@ namespace Mikaboshi.Locapos
         {
             this.client.CheckToken();
 
-            var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken);
+            var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
             var contentDict = new Dictionary<string, string>
                 {
                     { "screen_name", screenName }
