@@ -10,12 +10,12 @@ namespace Mikaboshi.Locapos.Response
     /// </summary>
     public class BaseResponse
     {
-        protected HttpResponseMessage ResponseMessage { get; private set; }
+        protected HttpResponseMessage? ResponseMessage { get; private set; }
 
         /// <summary>
         /// Locapos からの応答コードを取得します。
         /// </summary>
-        public HttpStatusCode StatusCode { get; private set; }
+        public HttpStatusCode? StatusCode { get; private set; }
         /// <summary>
         /// Locapos から成功の応答があったかどうかを取得します。
         /// </summary>
@@ -23,14 +23,14 @@ namespace Mikaboshi.Locapos.Response
         /// <summary>
         /// 例外が発生した場合、発生した例外を取得します。
         /// </summary>
-        public Exception Exception { get; private set; }
+        public Exception? Exception { get; private set; }
 
         public BaseResponse()
         {
 
         }
 
-        public BaseResponse(Exception ex)
+        public BaseResponse(Exception? ex)
         {
             this.Exception = ex;
         }

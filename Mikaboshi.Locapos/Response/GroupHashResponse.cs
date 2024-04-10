@@ -8,13 +8,13 @@ namespace Mikaboshi.Locapos.Response
     {
         private class GroupHash
         {
-            public string Key { get; init; }
+            public string? Key { get; init; }
         }
 
         /// <summary>
         /// グループ ハッシュを取得します。
         /// </summary>
-        public string Key { get; private set; }
+        public string? Key { get; private set; }
 
         internal override async Task SetResponseAsync(HttpResponseMessage response)
         {

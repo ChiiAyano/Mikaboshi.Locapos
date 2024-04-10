@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.Compression;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -11,19 +12,31 @@ namespace Mikaboshi.Locapos
         internal static string BaseUri => "https://locapos.com/";
         internal static string ApiUri => BaseUri + "api/";
 
-        private static HttpClient http;
+        private static HttpClient? http;
+
+        private static HttpClientHandler clientHandler = new() { AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip };
+
+        internal static HttpClientHandler? ClientHandler
+        {
+            get => clientHandler;
+            set
+            {
+                if (value is null)
+                {
+                    return;
+                }
+
+                clientHandler = value;
+                clientHandler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+            }
+        }
 
 
         internal static HttpClient GetHttpClient(ClientToken token)
         {
-            if (http != null) return http;
+            if (http is not null) return http;
 
-            var handler = new HttpClientHandler
-            {
-                AutomaticDecompression = System.Net.DecompressionMethods.Deflate | System.Net.DecompressionMethods.GZip
-            };
-
-            http = new HttpClient(handler);
+            http = new HttpClient(clientHandler);
 
             http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Token);
 
@@ -46,13 +59,13 @@ namespace Mikaboshi.Locapos
             return request;
         }
 
-        internal async static Task<HttpRequestMessage> CreatePostRequestAsync(string uri, HttpContent content, bool gzipCompress = false)
+        internal static async Task<HttpRequestMessage> CreatePostRequestAsync(string uri, HttpContent content, bool gzipCompress = false)
         {
             return await CreatePostRequestAsync(new Uri(uri), content, gzipCompress);
         }
 
 
-        internal async static Task<HttpRequestMessage> CreatePostRequestAsync(Uri uri, HttpContent content, bool gzipCompress = false)
+        internal static async Task<HttpRequestMessage> CreatePostRequestAsync(Uri uri, HttpContent content, bool gzipCompress = false)
         {
             HttpContent httpContent;
 
@@ -64,9 +77,9 @@ namespace Mikaboshi.Locapos
 
                 using (var mr = new MemoryStream())
                 {
-                    using (var gzip = new GZipStream(mr, CompressionMode.Compress))
+                    await using (var gzip = new GZipStream(mr, CompressionMode.Compress))
                     {
-                        await gzip.WriteAsync(data, 0, data.Length);
+                        await gzip.WriteAsync(data);
                     }
 
                     compressed = mr.ToArray();

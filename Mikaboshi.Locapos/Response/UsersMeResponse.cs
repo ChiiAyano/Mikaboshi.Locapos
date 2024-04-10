@@ -9,7 +9,7 @@ namespace Mikaboshi.Locapos.Response
         /// <summary>
         /// 自分自身の情報を取得します。
         /// </summary>
-        public UserPositionData Me { get; private set; }
+        public UserPositionData? Me { get; private set; }
 
         internal override async Task SetResponseAsync(HttpResponseMessage response)
         {
