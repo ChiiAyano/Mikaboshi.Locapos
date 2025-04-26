@@ -9,7 +9,8 @@ namespace Mikaboshi.Locapos
 {
     internal class LocaposClientInternal
     {
-        internal static string BaseUri => "https://locapos.com/";
+        internal static bool IsBeta { get; set; }
+        internal static string BaseUri => IsBeta ? "https://beta.locapos.com/" : "https://locapos.com/";
         internal static string ApiUri => BaseUri + "api/";
 
         private static HttpClient? http;
