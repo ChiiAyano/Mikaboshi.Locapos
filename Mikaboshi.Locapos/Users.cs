@@ -7,17 +7,28 @@ namespace Mikaboshi.Locapos
 {
     public class Users
     {
-        private static readonly string usersUri = LocaposClientInternal.ApiUri + "users/";
-        private static readonly string showUri = usersUri + "show";
-        private static readonly string meUri = usersUri + "me";
-        private static readonly string shareUri = usersUri + "share";
-        private static readonly string updateNameUri = usersUri + "update";
+        private const string Endpoint = "users/";
+        private const string ShowKey = "show";
+        private const string MeKey = "me";
+        private const string ShareKey = "share";
+        private const string UpdateNameKey = "update";
+
+        private readonly string showUri;
+        private readonly string meUri;
+        private readonly string shareUri;
+        private readonly string updateNameUri;
 
         private readonly LocaposClient client;
 
         internal Users(LocaposClient client)
         {
             this.client = client;
+
+            var endpointUri = (client.IsBeta ? LocaposClientInternal.ApiUriBeta : LocaposClientInternal.ApiUri) + Endpoint;
+            this.showUri = endpointUri + ShowKey;
+            this.meUri = endpointUri + MeKey;
+            this.shareUri = endpointUri + ShareKey;
+            this.updateNameUri = endpointUri + UpdateNameKey;
         }
 
         /// <summary>

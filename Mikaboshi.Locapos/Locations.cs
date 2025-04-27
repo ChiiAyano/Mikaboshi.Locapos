@@ -11,14 +11,17 @@ namespace Mikaboshi.Locapos
     /// </summary>
     public class Locations
     {
-        private static readonly string locationsUri = LocaposClientInternal.ApiUri + "locations/";
-        private static readonly string updateUri = locationsUri + "update";
+        private const string Endpoint = "locations/";
+        private const string UpdateKey = "update";
+
+        private readonly string updateUri;
 
         private readonly LocaposClient client;
 
         internal Locations(LocaposClient client)
         {
             this.client = client;
+            this.updateUri = (client.IsBeta ? LocaposClientInternal.ApiUriBeta : LocaposClientInternal.ApiUri) + Endpoint + UpdateKey;
         }
 
         /// <summary>

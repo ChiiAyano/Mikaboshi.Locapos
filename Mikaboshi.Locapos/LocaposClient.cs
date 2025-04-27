@@ -9,6 +9,11 @@ namespace Mikaboshi.Locapos
         private static string AuthUri => LocaposClientInternal.BaseUri + "oauth/authorize?response_type=token&client_id={0}&redirect_uri=";
 
         /// <summary>
+        /// ベータ版の使用かどうかを取得します。
+        /// </summary>
+        public bool IsBeta { get; }
+
+        /// <summary>
         /// サービスの利用に必要なトークンを取得または設定します。
         /// </summary>
         public ClientToken? ClientToken { get; set; }
@@ -74,9 +79,9 @@ namespace Mikaboshi.Locapos
             this.Locations = new Locations(this);
             this.Users = new Users(this);
             this.Groups = new Groups(this);
+            this.IsBeta = isBeta;
 
             LocaposClientInternal.ClientHandler = clientHandler;
-            LocaposClientInternal.IsBeta = isBeta;
         }
 
         /// <summary>

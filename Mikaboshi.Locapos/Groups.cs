@@ -8,15 +8,22 @@ namespace Mikaboshi.Locapos
     /// </summary>
     public class Groups
     {
-        private static readonly string groupsUri = LocaposClientInternal.ApiUri + "groups/";
-        private static readonly string joinUri = groupsUri + "join";
-        private static readonly string newUri = groupsUri + "new";
+        private const string Endpoint = "groups/";
+        private const string JoinKey = "join";
+        private const string NewKey = "new";
+
+        private readonly string joinUri;
+        private readonly string newUri;
 
         private readonly LocaposClient client;
 
         internal Groups(LocaposClient client)
         {
             this.client = client;
+
+            var endpointUri = (client.IsBeta ? LocaposClientInternal.ApiUriBeta : LocaposClientInternal.ApiUri) + Endpoint;
+            this.joinUri = endpointUri + JoinKey;
+            this.newUri = endpointUri + NewKey;
         }
 
         /// <summary>
