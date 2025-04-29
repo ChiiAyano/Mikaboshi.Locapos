@@ -36,9 +36,7 @@ namespace Mikaboshi.Locapos
 
         internal static HttpClient GetHttpClient(ClientToken token)
         {
-            if (http is not null) return http;
-
-            http = new HttpClient(clientHandler);
+            http ??= new HttpClient(clientHandler);
 
             http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Token);
 
