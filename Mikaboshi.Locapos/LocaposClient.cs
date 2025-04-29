@@ -28,7 +28,7 @@ namespace Mikaboshi.Locapos
         /// <returns></returns>
         public Uri GetAuthenticationUri(string apiKey, Uri redirectUri)
         {
-            var authUri = (this.IsBeta ? LocaposClientInternal.ApiUriBeta : LocaposClientInternal.ApiUri) + AuthUriEndpoint;
+            var authUri = (this.IsBeta ? LocaposClientInternal.BaseUriBeta : LocaposClientInternal.BaseUri) + AuthUriEndpoint;
 
             var escaped = Uri.EscapeDataString(redirectUri.ToString());
             var uri = new Uri(string.Format(authUri, Uri.EscapeDataString(apiKey)) + escaped);

@@ -12,18 +12,15 @@ namespace Mikaboshi.Locapos
         private const string JoinKey = "join";
         private const string NewKey = "new";
 
-        private readonly string joinUri;
-        private readonly string newUri;
+        private string EndpointUri => (client.IsBeta ? LocaposClientInternal.ApiUriBeta : LocaposClientInternal.ApiUri) + Endpoint;
+        private string JoinUri => this.EndpointUri + JoinKey;
+        private string NewUri => this.EndpointUri + NewKey;
 
         private readonly LocaposClient client;
 
         internal Groups(LocaposClient client)
         {
             this.client = client;
-
-            var endpointUri = (client.IsBeta ? LocaposClientInternal.ApiUriBeta : LocaposClientInternal.ApiUri) + Endpoint;
-            this.joinUri = endpointUri + JoinKey;
-            this.newUri = endpointUri + NewKey;
         }
 
         /// <summary>
@@ -35,7 +32,7 @@ namespace Mikaboshi.Locapos
             this.client.CheckToken();
 
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
-            var request = LocaposClientInternal.CreateGetRequest(newUri);
+            var request = LocaposClientInternal.CreateGetRequest(this.NewUri);
             var response = await http.SendAsync(request);
             var result = new GroupHashResponse();
             await result.SetResponseAsync(response);
