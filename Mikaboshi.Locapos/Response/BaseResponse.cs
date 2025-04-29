@@ -17,6 +17,10 @@ namespace Mikaboshi.Locapos.Response
         /// </summary>
         public HttpStatusCode? StatusCode { get; private set; }
         /// <summary>
+        /// 追加で情報がある場合、レスポンスの内容を取得します。
+        /// </summary>
+        public string Content { get; private set; } = string.Empty;
+        /// <summary>
         /// Locapos から成功の応答があったかどうかを取得します。
         /// </summary>
         public bool Succeeded => this.ResponseMessage?.IsSuccessStatusCode ?? false;
@@ -40,12 +44,13 @@ namespace Mikaboshi.Locapos.Response
         /// </summary>
         /// <param name="response"></param>
         /// <returns></returns>
-        internal virtual Task SetResponseAsync(HttpResponseMessage response)
+        internal virtual async Task SetResponseAsync(HttpResponseMessage response)
         {
             this.ResponseMessage = response;
             this.StatusCode = response.StatusCode;
 
-            return Task.CompletedTask;
+            var content = await response.Content.ReadAsStringAsync();
+            this.Content = content;
         }
     }
 }
