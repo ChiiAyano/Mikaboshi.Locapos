@@ -6,7 +6,7 @@ namespace Mikaboshi.Locapos
 {
     public class LocaposClient
     {
-        private static string AuthUri => LocaposClientInternal.BaseUri + "oauth/authorize?response_type=token&client_id={0}&redirect_uri=";
+        private const string AuthUriEndpoint = "oauth/authorize?response_type=token&client_id={0}&redirect_uri=";
 
         /// <summary>
         /// ベータ版の使用かどうかを取得します。
@@ -28,8 +28,10 @@ namespace Mikaboshi.Locapos
         /// <returns></returns>
         public Uri GetAuthenticationUri(string apiKey, Uri redirectUri)
         {
+            var authUri = (this.IsBeta ? LocaposClientInternal.ApiUriBeta : LocaposClientInternal.ApiUri) + AuthUriEndpoint;
+
             var escaped = Uri.EscapeDataString(redirectUri.ToString());
-            var uri = new Uri(string.Format(AuthUri, Uri.EscapeDataString(apiKey)) + escaped);
+            var uri = new Uri(string.Format(authUri, Uri.EscapeDataString(apiKey)) + escaped);
 
             return uri;
         }
