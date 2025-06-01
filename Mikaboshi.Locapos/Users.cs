@@ -7,11 +7,17 @@ namespace Mikaboshi.Locapos
 {
     public class Users
     {
-        private static readonly string usersUri = LocaposClientInternal.ApiUri + "users/";
-        private static readonly string showUri = usersUri + "show";
-        private static readonly string meUri = usersUri + "me";
-        private static readonly string shareUri = usersUri + "share";
-        private static readonly string updateNameUri = usersUri + "update";
+        private const string Endpoint = "users/";
+        private const string ShowKey = "show";
+        private const string MeKey = "me";
+        private const string ShareKey = "share";
+        private const string UpdateNameKey = "update";
+
+        private string EndpointUri => (client.IsBeta ? LocaposClientInternal.ApiUriBeta : LocaposClientInternal.ApiUri) + Endpoint;
+        private string ShowUri => this.EndpointUri + ShowKey;
+        private string MeUri => this.EndpointUri + MeKey;
+        private string ShareUri => this.EndpointUri + ShareKey;
+        private string UpdateNameUri => this.EndpointUri + UpdateNameKey;
 
         private readonly LocaposClient client;
 
@@ -30,7 +36,7 @@ namespace Mikaboshi.Locapos
             this.client.CheckToken();
 
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
-            var request = LocaposClientInternal.CreateGetRequest(showUri +
+            var request = LocaposClientInternal.CreateGetRequest(this.ShowUri +
                 (!string.IsNullOrWhiteSpace(groupId) ? "?key=" + groupId : string.Empty));
             var response = await http.SendAsync(request);
             var result = new UsersShowResponse();
@@ -48,7 +54,7 @@ namespace Mikaboshi.Locapos
             this.client.CheckToken();
 
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
-            var request = LocaposClientInternal.CreateGetRequest(meUri);
+            var request = LocaposClientInternal.CreateGetRequest(this.MeUri);
             var response = await http.SendAsync(request);
             var result = new UsersMeResponse();
             await result.SetResponseAsync(response);
@@ -65,7 +71,7 @@ namespace Mikaboshi.Locapos
             this.client.CheckToken();
 
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
-            var request = LocaposClientInternal.CreateGetRequest(shareUri);
+            var request = LocaposClientInternal.CreateGetRequest(this.ShareUri);
             var response = await http.SendAsync(request);
             var result = new GroupHashResponse();
             await result.SetResponseAsync(response);
@@ -85,7 +91,7 @@ namespace Mikaboshi.Locapos
 
             var content = new FormUrlEncodedContent(contentDict);
 
-            var request = await LocaposClientInternal.CreatePostRequestAsync(updateNameUri, content);
+            var request = await LocaposClientInternal.CreatePostRequestAsync(this.UpdateNameUri, content);
             var response = await http.SendAsync(request);
             var result = new BaseResponse();
             await result.SetResponseAsync(response);

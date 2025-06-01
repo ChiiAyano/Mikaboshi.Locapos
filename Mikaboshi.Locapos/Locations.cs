@@ -11,8 +11,10 @@ namespace Mikaboshi.Locapos
     /// </summary>
     public class Locations
     {
-        private static readonly string locationsUri = LocaposClientInternal.ApiUri + "locations/";
-        private static readonly string updateUri = locationsUri + "update";
+        private const string Endpoint = "locations/";
+        private const string UpdateKey = "update";
+
+        private string UpdateUri => (client.IsBeta ? LocaposClientInternal.ApiUriBeta : LocaposClientInternal.ApiUri) + Endpoint + UpdateKey;
 
         private readonly LocaposClient client;
 
@@ -46,7 +48,7 @@ namespace Mikaboshi.Locapos
             if (!string.IsNullOrWhiteSpace(groupId)) contentsDict.Add("key", groupId);
 
             var contents = new FormUrlEncodedContent(contentsDict);
-            var request = await LocaposClientInternal.CreatePostRequestAsync(updateUri, contents, true);
+            var request = await LocaposClientInternal.CreatePostRequestAsync(this.UpdateUri, contents, true);
 
             var response = await http.SendAsync(request);
             var result = new BaseResponse();

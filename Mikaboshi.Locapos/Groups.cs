@@ -8,9 +8,13 @@ namespace Mikaboshi.Locapos
     /// </summary>
     public class Groups
     {
-        private static readonly string groupsUri = LocaposClientInternal.ApiUri + "groups/";
-        private static readonly string joinUri = groupsUri + "join";
-        private static readonly string newUri = groupsUri + "new";
+        private const string Endpoint = "groups/";
+        private const string JoinKey = "join";
+        private const string NewKey = "new";
+
+        private string EndpointUri => (client.IsBeta ? LocaposClientInternal.ApiUriBeta : LocaposClientInternal.ApiUri) + Endpoint;
+        private string JoinUri => this.EndpointUri + JoinKey;
+        private string NewUri => this.EndpointUri + NewKey;
 
         private readonly LocaposClient client;
 
@@ -28,7 +32,7 @@ namespace Mikaboshi.Locapos
             this.client.CheckToken();
 
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
-            var request = LocaposClientInternal.CreateGetRequest(newUri);
+            var request = LocaposClientInternal.CreateGetRequest(this.NewUri);
             var response = await http.SendAsync(request);
             var result = new GroupHashResponse();
             await result.SetResponseAsync(response);

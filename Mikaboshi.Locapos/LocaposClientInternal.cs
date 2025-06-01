@@ -10,7 +10,9 @@ namespace Mikaboshi.Locapos
     internal class LocaposClientInternal
     {
         internal static string BaseUri => "https://locapos.com/";
+        internal static string BaseUriBeta => "https://beta.locapos.com/";
         internal static string ApiUri => BaseUri + "api/";
+        internal static string ApiUriBeta => BaseUriBeta + "api/";
 
         private static HttpClient? http;
 
@@ -34,9 +36,7 @@ namespace Mikaboshi.Locapos
 
         internal static HttpClient GetHttpClient(ClientToken token)
         {
-            if (http is not null) return http;
-
-            http = new HttpClient(clientHandler);
+            http ??= new HttpClient(clientHandler);
 
             http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Token);
 
