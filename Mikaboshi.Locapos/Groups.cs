@@ -1,4 +1,5 @@
 ﻿using Mikaboshi.Locapos.Response;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Mikaboshi.Locapos
@@ -26,14 +27,15 @@ namespace Mikaboshi.Locapos
         /// <summary>
         /// 新しくグループを作成します。
         /// </summary>
+        /// <param name="cancellationToken">キャンセルトークン</param>
         /// <returns>グループのハッシュが含まれるレスポンス情報。</returns>
-        public async Task<GroupHashResponse> New()
+        public async Task<GroupHashResponse> New(CancellationToken cancellationToken = default)
         {
             this.client.CheckToken();
 
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
             var request = LocaposClientInternal.CreateGetRequest(this.NewUri);
-            var response = await http.SendAsync(request);
+            var response = await http.SendAsync(request, cancellationToken);
             var result = new GroupHashResponse();
             await result.SetResponseAsync(response);
 
