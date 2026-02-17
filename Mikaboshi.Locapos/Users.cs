@@ -1,7 +1,8 @@
-﻿using Mikaboshi.Locapos.Response;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
+using Mikaboshi.Locapos.Response;
 
 namespace Mikaboshi.Locapos
 {
@@ -30,15 +31,16 @@ namespace Mikaboshi.Locapos
         /// 現在アクティブなユーザーの情報を取得します。<paramref name="groupId"/> を使用して、該当するグループの絞り込みをおこないます。
         /// </summary>
         /// <param name="groupId">指定した場合、該当するグループ ID でアクティブなユーザー一覧を取得します。</param>
+        /// <param name="cancellationToken"> キャンセルトークン</param>
         /// <returns></returns>
-        public async Task<UsersShowResponse> Show(string groupId = "")
+        public async Task<UsersShowResponse> Show(string groupId = "", CancellationToken cancellationToken = default)
         {
             this.client.CheckToken();
 
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
             var request = LocaposClientInternal.CreateGetRequest(this.ShowUri +
                 (!string.IsNullOrWhiteSpace(groupId) ? "?key=" + groupId : string.Empty));
-            var response = await http.SendAsync(request);
+            var response = await http.SendAsync(request, cancellationToken);
             var result = new UsersShowResponse();
             await result.SetResponseAsync(response);
 
@@ -48,14 +50,15 @@ namespace Mikaboshi.Locapos
         /// <summary>
         /// 自分自身の情報を取得します。
         /// </summary>
+        /// <param name="cancellationToken"> キャンセルトークン</param>
         /// <returns></returns>
-        public async Task<UsersMeResponse> Me()
+        public async Task<UsersMeResponse> Me(CancellationToken cancellationToken = default)
         {
             this.client.CheckToken();
 
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
             var request = LocaposClientInternal.CreateGetRequest(this.MeUri);
-            var response = await http.SendAsync(request);
+            var response = await http.SendAsync(request, cancellationToken);
             var result = new UsersMeResponse();
             await result.SetResponseAsync(response);
 
@@ -65,21 +68,22 @@ namespace Mikaboshi.Locapos
         /// <summary>
         /// 自分自身を示す暗黙的なグループ ハッシュを取得します。
         /// </summary>
+        /// <param name="cancellationToken"> キャンセルトークン</param>
         /// <returns></returns>
-        public async Task<GroupHashResponse> Share()
+        public async Task<GroupHashResponse> Share(CancellationToken cancellationToken = default)
         {
             this.client.CheckToken();
 
             var http = LocaposClientInternal.GetHttpClient(this.client.ClientToken!);
             var request = LocaposClientInternal.CreateGetRequest(this.ShareUri);
-            var response = await http.SendAsync(request);
+            var response = await http.SendAsync(request, cancellationToken);
             var result = new GroupHashResponse();
             await result.SetResponseAsync(response);
 
             return result;
         }
 
-        public async Task<BaseResponse> Update(string screenName)
+        public async Task<BaseResponse> Update(string screenName, CancellationToken cancellationToken = default)
         {
             this.client.CheckToken();
 
@@ -92,7 +96,7 @@ namespace Mikaboshi.Locapos
             var content = new FormUrlEncodedContent(contentDict);
 
             var request = await LocaposClientInternal.CreatePostRequestAsync(this.UpdateNameUri, content);
-            var response = await http.SendAsync(request);
+            var response = await http.SendAsync(request, cancellationToken);
             var result = new BaseResponse();
             await result.SetResponseAsync(response);
 
