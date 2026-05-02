@@ -79,9 +79,14 @@ namespace Mikaboshi.Locapos
         #region 共通処理
 
         public LocaposClient(HttpClientHandler? clientHandler = null, bool isBeta = false)
+            : this(new LocaposClientInternal(clientHandler), isBeta)
+        {
+        }
+
+        internal LocaposClient(LocaposClientInternal internalClient, bool isBeta = false)
         {
             this.IsBeta = isBeta;
-            this.InternalClient = new LocaposClientInternal(clientHandler);
+            this.InternalClient = internalClient;
             this.Locations = new Locations(this, this.InternalClient);
             this.Users = new Users(this, this.InternalClient);
             this.Groups = new Groups(this, this.InternalClient);

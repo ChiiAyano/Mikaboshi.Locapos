@@ -24,18 +24,18 @@ namespace Mikaboshi.Locapos
             this.http = new HttpClient(this.clientHandler);
         }
 
-        internal HttpClient GetHttpClient(ClientToken token)
+        internal virtual HttpClient GetHttpClient(ClientToken token)
         {
             this.http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Token);
             return this.http;
         }
 
-        internal HttpRequestMessage CreateGetRequest(string uri)
+        internal virtual HttpRequestMessage CreateGetRequest(string uri)
         {
             return CreateGetRequest(new Uri(uri));
         }
 
-        internal HttpRequestMessage CreateGetRequest(Uri uri)
+        internal virtual HttpRequestMessage CreateGetRequest(Uri uri)
         {
             var request = new HttpRequestMessage
             {
@@ -46,12 +46,12 @@ namespace Mikaboshi.Locapos
             return request;
         }
 
-        internal async Task<HttpRequestMessage> CreatePostRequestAsync(string uri, HttpContent content, bool gzipCompress = false)
+        internal virtual async Task<HttpRequestMessage> CreatePostRequestAsync(string uri, HttpContent content, bool gzipCompress = false)
         {
             return await CreatePostRequestAsync(new Uri(uri), content, gzipCompress);
         }
 
-        internal async Task<HttpRequestMessage> CreatePostRequestAsync(Uri uri, HttpContent content, bool gzipCompress = false)
+        internal virtual async Task<HttpRequestMessage> CreatePostRequestAsync(Uri uri, HttpContent content, bool gzipCompress = false)
         {
             HttpContent httpContent;
 
