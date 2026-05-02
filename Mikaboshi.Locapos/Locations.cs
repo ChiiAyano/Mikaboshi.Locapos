@@ -32,9 +32,10 @@ namespace Mikaboshi.Locapos
         /// <param name="heading">送信する移動時の向き。真北を 0 とし、0 - 359 または -180 - 0 - 180 のどれかで指定ができ、また null を指定した場合は、相手には前の位置からの推測で表示されます。</param>
         /// <param name="privatePost">Locapos の公開地図に表示するかどうか。</param>
         /// <param name="groupId">任意グループに対して送信する場合はその ID を指定します。</param>
+        /// <param name="deadReckoning">推測航法を行うかどうか。true を指定した場合、Locapos は前回の位置からの推測で位置を表示します。これにより、位置情報の更新が途切れた場合でも、相手には前回の位置からの推測で表示されます。</param>
         /// <param name="cancellationToken">キャンセルトークン</param>
         /// <returns></returns>
-        public async Task<BaseResponse> UpdateAsync(double latitude, double longitude, double? heading = null, bool privatePost = false, string groupId = "", CancellationToken cancellationToken = default)
+        public async Task<BaseResponse> UpdateAsync(double latitude, double longitude, double? heading = null, bool privatePost = false, string groupId = "", bool deadReckoning = false, CancellationToken cancellationToken = default)
         {
             this.client.CheckToken();
 
@@ -48,6 +49,7 @@ namespace Mikaboshi.Locapos
             if (heading.HasValue) contentsDict.Add("heading", heading.Value.ToString(CultureInfo.InvariantCulture));
             if (privatePost) contentsDict.Add("private", "true");
             if (!string.IsNullOrWhiteSpace(groupId)) contentsDict.Add("key", groupId);
+            if (deadReckoning) contentsDict.Add("posMode", "E");
 
             var contents = new FormUrlEncodedContent(contentsDict);
             var request = await LocaposClientInternal.CreatePostRequestAsync(this.UpdateUri, contents, true);
