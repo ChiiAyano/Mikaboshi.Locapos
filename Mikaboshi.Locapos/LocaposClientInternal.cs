@@ -9,46 +9,33 @@ namespace Mikaboshi.Locapos
 {
     internal class LocaposClientInternal
     {
-        internal static string BaseUri => "https://locapos.com/";
-        internal static string BaseUriBeta => "https://beta.locapos.com/";
-        internal static string ApiUri => BaseUri + "api/";
-        internal static string ApiUriBeta => BaseUriBeta + "api/";
+        internal string BaseUri => "https://locapos.com/";
+        internal string BaseUriBeta => "https://beta.locapos.com/";
+        internal string ApiUri => this.BaseUri + "api/";
+        internal string ApiUriBeta => this.BaseUriBeta + "api/";
 
-        private static HttpClient? http;
+        private readonly HttpClient http;
+        private readonly HttpClientHandler clientHandler;
 
-        private static HttpClientHandler clientHandler = new() { AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip };
-
-        internal static HttpClientHandler? ClientHandler
+        internal LocaposClientInternal(HttpClientHandler? clientHandler = null)
         {
-            get => clientHandler;
-            set
-            {
-                if (value is null)
-                {
-                    return;
-                }
-
-                clientHandler = value;
-                clientHandler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
-            }
+            this.clientHandler = clientHandler ?? new HttpClientHandler();
+            this.clientHandler.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip;
+            this.http = new HttpClient(this.clientHandler);
         }
 
-
-        internal static HttpClient GetHttpClient(ClientToken token)
+        internal HttpClient GetHttpClient(ClientToken token)
         {
-            http ??= new HttpClient(clientHandler);
-
-            http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Token);
-
-            return http;
+            this.http.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token.Token);
+            return this.http;
         }
 
-        internal static HttpRequestMessage CreateGetRequest(string uri)
+        internal HttpRequestMessage CreateGetRequest(string uri)
         {
             return CreateGetRequest(new Uri(uri));
         }
 
-        internal static HttpRequestMessage CreateGetRequest(Uri uri)
+        internal HttpRequestMessage CreateGetRequest(Uri uri)
         {
             var request = new HttpRequestMessage
             {
@@ -59,19 +46,17 @@ namespace Mikaboshi.Locapos
             return request;
         }
 
-        internal static async Task<HttpRequestMessage> CreatePostRequestAsync(string uri, HttpContent content, bool gzipCompress = false)
+        internal async Task<HttpRequestMessage> CreatePostRequestAsync(string uri, HttpContent content, bool gzipCompress = false)
         {
             return await CreatePostRequestAsync(new Uri(uri), content, gzipCompress);
         }
 
-
-        internal static async Task<HttpRequestMessage> CreatePostRequestAsync(Uri uri, HttpContent content, bool gzipCompress = false)
+        internal async Task<HttpRequestMessage> CreatePostRequestAsync(Uri uri, HttpContent content, bool gzipCompress = false)
         {
             HttpContent httpContent;
 
             if (gzipCompress)
             {
-                // GZIP
                 var data = await content.ReadAsByteArrayAsync();
                 byte[] compressed;
 
